@@ -80,7 +80,7 @@ namespace Application.Services
 
             var usuarioRequest = new User
             {
-                Password = request.Password,
+                Password = Encriptacion.GetSha256(request.Password),
                 PersonaId = request.PersonaId,
                 RolId = request.RolId,
                 Username=request.Usuario
