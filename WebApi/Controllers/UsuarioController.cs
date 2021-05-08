@@ -3,6 +3,7 @@ using Application.Http.Requests;
 using Application.Http.Responses;
 using Application.Services;
 using Domain.Contract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,6 +15,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;

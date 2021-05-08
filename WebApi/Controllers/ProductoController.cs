@@ -3,6 +3,7 @@ using Application.Http.Requests;
 using Application.Http.Responses;
 using Application.Services;
 using Domain.Contract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductoController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;

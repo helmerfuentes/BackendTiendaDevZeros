@@ -41,7 +41,7 @@ namespace Application.Http.Responses
 
         public ProductoResponse Include(List<DetalleCompra> detalleCompras)
         {
-            if (detalleCompras!=null)
+            if (detalleCompras!=null && detalleCompras.Count!=0)
             {
                 Fecha = detalleCompras.Max(x => x.Fecha);
             }
