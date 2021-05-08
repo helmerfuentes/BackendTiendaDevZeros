@@ -54,7 +54,7 @@ namespace WebApi
                             ValidateIssuerSigningKey = true,
                             ValidIssuer = "yourdomain.com",
                             ValidAudience = "yourdomain.com",
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("Token").Value)),
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("pruebaTiendaDevZeros")),
                             ClockSkew = TimeSpan.Zero
                         });
         }
@@ -72,7 +72,7 @@ namespace WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

@@ -13,9 +13,9 @@ namespace Infrastructure.Inicializacion
         public static void  InicializarUsuario(MyContext ctx)
         {
             var usuarios = new List<User>();
-            usuarios.Add(new User { Id = 1, Username = "helmerfa", PersonaId = 1, RolId = 1, Password = GetSha256("123456") });
-            usuarios.Add(new User { Id = 2, Username="helmerfa2",PersonaId=2,RolId=2, Password = GetSha256("123456") });
-            usuarios.Add(new User { Id = 3, Username="helmerfa3",PersonaId=3,RolId=1, Password = GetSha256("123456") });
+            usuarios.Add(new User { Id = 1, Username = "lider", PersonaId = 1, RolId = 1, Password = GetSha256("123456") });
+            usuarios.Add(new User { Id = 2, Username="ventas",PersonaId=2,RolId=3, Password = GetSha256("123456") });
+            usuarios.Add(new User { Id = 3, Username="interesado",PersonaId=3,RolId=2, Password = GetSha256("123456") });
             ctx.Users.AddRange(usuarios);
             ctx.SaveChanges();
         }

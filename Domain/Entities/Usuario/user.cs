@@ -8,7 +8,6 @@ namespace Domain.Entities.Usuario
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public string RememberPassword { get; set; }
         public int RolId { get; set; }
         public Rol  Rol { get; set; }
         public int PersonaId { get; set; }

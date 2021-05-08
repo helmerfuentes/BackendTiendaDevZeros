@@ -29,6 +29,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public ActionResult<Response<LoginUserResponse>> Login(LoginUserRequest request)
         {
 
