@@ -10,25 +10,34 @@ namespace Application.Http.Responses
     public class UsuarioResponse
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Rol { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string Telefono { get; set; }
-        public string Direccion { get; set; }
+        public string Usuario { get; set; }
+        public RolResponse Rol { get; set; }
+        public PersonaResponse Persona { get; set; }
 
         public UsuarioResponse(User usuario)
         {
             Id = usuario.Id;
-            Username = usuario.Username;
-            Rol = usuario.Rol.Nombre;
-            Nombres = usuario.Persona.Nombres;
-            Apellidos = usuario.Persona.Apellidos;
-            Telefono = usuario.Persona.Telefono;
-            Direccion = usuario.Persona.Direccion;
-
+            Usuario = usuario.Username;
 
         }
+        public UsuarioResponse Include(Rol rol)
+        {
+            if (rol!=null)
+            {
+                Rol = new RolResponse(rol);
+            }
+            return this;
+        }
+        public UsuarioResponse Include(Persona persona)
+        {
+            if (persona!=null)
+            {
+                Persona = new PersonaResponse(persona);
+            }
+            return this;
+
+        }
+
 
     }
 }

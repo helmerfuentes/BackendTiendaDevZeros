@@ -27,7 +27,8 @@ namespace Application.Services
             return new Response<IEnumerable<UsuarioResponse>>
             {
                 Message = "Listado de Usuarios",
-                Data = usuarios.ConvertAll(x => new UsuarioResponse(x))
+                Data = usuarios.ConvertAll(x => new UsuarioResponse(x).Include(x.Rol).Include(x.Persona)),
+                Code=System.Net.HttpStatusCode.OK
             };
                     
         }
@@ -35,10 +36,9 @@ namespace Application.Services
         public Response<CrearUsuarioResponse> Registrar(CrearUsuarioRequest request)
         {
             var usuario = UnitOfWork.UserRepository
-               .FindBy(x => x.Username == request.Username , "Rol")
-               .FirstOrDefault();
+               .Any(x => x.Username == request.Usuario);
 
-            if (usuario is null)
+            if (usuario)
             {
                 return new Response<CrearUsuarioResponse>
                 {
@@ -83,12 +83,12 @@ namespace Application.Services
                 Password = request.Password,
                 PersonaId = request.PersonaId,
                 RolId = request.RolId,
-                Username=request.Username
+                Username=request.Usuario
             };
 
             UnitOfWork.UserRepository.Add(usuarioRequest);
             UnitOfWork.Commit();
-            return new Response<CrearUsuarioResponse>("Usuario Creado", data: new CrearUsuarioResponse { Rol = rol.Nombre, UserName = request.Username });
+            return new Response<CrearUsuarioResponse>("Usuario Creado", data: new CrearUsuarioResponse { Rol = rol.Nombre, UserName = request.Usuario});
 
         }
 

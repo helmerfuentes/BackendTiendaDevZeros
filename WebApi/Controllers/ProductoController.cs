@@ -28,13 +28,15 @@ namespace WebApi.Controllers
         public ActionResult<Response<IEnumerable<ProductoResponse>>> Listar()
         {
 
-            return _productoService.Listar();
+            var response=_productoService.Listar();
+            return StatusCode((int)response.Code, response);
         }
 
         [HttpPost]
         public ActionResult<Response<CrearProductoResponse>>Registrar(CrearProductoRequest request)
         {
-            return _productoService.Registrar(request);
+            var response= _productoService.Registrar(request);
+            return StatusCode((int)response.Code, response);
         }
     }
 }

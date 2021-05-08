@@ -2,6 +2,7 @@
 using Application.Http.Responses;
 using Application.Services;
 using Domain.Contract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProovedorController
+    public class ProovedorController : ControllerBase
     {
         private readonly IUnitOfWork _iuniOfWork;
         private readonly ProovedorService _provedorService;
@@ -22,11 +23,11 @@ namespace WebApi.Controllers
             _provedorService = new ProovedorService(unitOfWork);
         }
 
-           [HttpGet]
+        [HttpGet]
         public ActionResult<Response<IEnumerable<ProovedorResponse>>> Listar()
         {
-
-            return _provedorService.Listar();
+            var response = _provedorService.Listar();
+            return StatusCode((int)response.Code, response);
         }
     }
 }

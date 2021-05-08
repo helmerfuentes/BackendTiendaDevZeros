@@ -28,13 +28,15 @@ namespace WebApi.Controllers
         [HttpPost("venta")]
         public ActionResult<Response<FacturaResponse>> RegistrarVenta(CrearFacturaVentaRequest request)
         {
-            return _facturaService.RegistrarVenta(request);
+            var response=_facturaService.RegistrarVenta(request);
+            return StatusCode((int)response.Code, response);
         }
 
         [HttpPost("compra")]
         public ActionResult<Response<FacturaResponse>> RegistrarCompra(CrearFacturaCompraRequest request)
         {
-            return _facturaService.RegistrarCompra(request);
+            var response= _facturaService.RegistrarCompra(request);
+            return StatusCode((int)response.Code, response);
         }
 
 
@@ -42,14 +44,16 @@ namespace WebApi.Controllers
         public ActionResult<Response<IEnumerable<FacturaVentaResponse>>> ListarVentas()
         {
 
-            return _facturaService.ListarVentas();
+            var response= _facturaService.ListarVentas();
+            return StatusCode((int)response.Code, response);
         }
 
         [HttpGet("compra")]
         public ActionResult<Response<IEnumerable<FacturaCompraResponse>>> ListarCompras()
         {
 
-            return _facturaService.ListarCompras();
+            var response= _facturaService.ListarCompras();
+            return StatusCode((int)response.Code, response);
         }
     }
 }

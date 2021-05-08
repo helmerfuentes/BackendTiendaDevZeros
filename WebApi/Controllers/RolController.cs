@@ -13,23 +13,22 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class RolController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly CategoriaService _categoriaService;
-        public CategoriaController(IUnitOfWork unitOfWork)
+        private readonly RolService _rolService;
+        public RolController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _categoriaService = new CategoriaService(unitOfWork);
+            _rolService= new RolService(unitOfWork);
         }
 
         [HttpGet]
-        public ActionResult<Response<IEnumerable<CategoriaResponse>>> Listar()
+        public ActionResult<Response<IEnumerable<RolResponse>>> Listar()
         {
 
-            var response= _categoriaService.Listar();
+            var response= _rolService.Listar();
             return StatusCode((int)response.Code, response);
         }
-
     }
 }

@@ -27,7 +27,8 @@ namespace WebApi.Controllers
         public ActionResult<Response<PersonaResponse>> Registrar(CrearPersonaRequest request)
         {
 
-            return _personaService.Registrar(request);
+            var response= _personaService.Registrar(request);
+            return StatusCode((int)response.Code, response);
         }
     }
 }

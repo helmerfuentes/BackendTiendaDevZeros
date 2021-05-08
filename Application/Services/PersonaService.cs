@@ -25,7 +25,7 @@ namespace Application.Services
                 Apellidos = request.Apellidos,
                 Direccion = request.Direccion,
                 Documento = request.Documento,
-                Nombres = request.Documento,
+                Nombres = request.Nombres,
                 Telefono = request.Telefono
             };
 
@@ -37,7 +37,8 @@ namespace Application.Services
                     Nombres = request.Nombres,
                     Direccion = request.Direccion,
                     Documento = request.Documento, 
-                    Telefono = request.Telefono });
+                    Telefono = request.Telefono,
+                    Id=persona.Id});
 
         }
 

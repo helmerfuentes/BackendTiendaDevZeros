@@ -14,6 +14,7 @@ namespace Infrastructure.Inicializacion
             var roles = new List<Rol>();
             roles.Add(new Rol { Id = 1, Nombre = "Lider" });
             roles.Add(new Rol { Id = 2, Nombre = "Intersado" });
+            roles.Add(new Rol { Id = 3, Nombre = "Ventas" });
             ctx.Roles.AddRange(roles);
             ctx.SaveChanges();
         }

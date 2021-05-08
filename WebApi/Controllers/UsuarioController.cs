@@ -27,17 +27,27 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<Response<LoginUserResponse>> login(LoginUserRequest request)
+        public ActionResult<Response<LoginUserResponse>> Login(LoginUserRequest request)
         {
 
-            return _usuarioService.Autenticar(request);
+            var response= _usuarioService.Autenticar(request);
+            return StatusCode((int)response.Code, response);
         }
 
         [HttpPost("registrar")]
-        public ActionResult<Response<CrearUsuarioResponse>> registrar(CrearUsuarioRequest request)
+        public ActionResult<Response<CrearUsuarioResponse>> Registrar(CrearUsuarioRequest request)
         {
 
-            return _usuarioService.Registrar(request);
+            var response= _usuarioService.Registrar(request);
+            return StatusCode((int)response.Code, response);
+        }
+
+        [HttpGet]
+        public ActionResult<Response<IEnumerable<UsuarioResponse>>> Listar()
+        {
+
+            var response= _usuarioService.Listar();
+            return StatusCode((int)response.Code, response);
         }
 
 
