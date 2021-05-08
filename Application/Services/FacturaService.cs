@@ -49,7 +49,7 @@ namespace Application.Services
                 FacturaVentaBuilder.Inicializar();
                 request.DetallesProducto.ForEach(x =>
                 {
-                    FacturaVentaBuilder.AgregarDetalle(x.Descuento, productos.First(p => p.Id == x.ProductoId), x.Costo, x.Cantidad);
+                    FacturaVentaBuilder.AgregarDetalle(x.Descuento, productos.First(p => p.Id == x.ProductoId), x.PrecioUnitario, x.Cantidad);
                 });
                 var factura = FacturaVentaBuilder.Build(request.PersonaId);
 
@@ -94,7 +94,7 @@ namespace Application.Services
         {
             var facturas = UnitOfWork.FacturaVentaRepository.FindBy(includeProperties:"Persona,Ventas.Producto").ToList();
 
-            return new Response<IEnumerable<FacturaVentaResponse>>("Compra realizadas",
+            return new Response<IEnumerable<FacturaVentaResponse>>("Ventas realizadas",
               data: facturas.ConvertAll(x => new FacturaVentaResponse(x).Include(x.Persona).Include(x.Ventas.ToList()))
               );
             

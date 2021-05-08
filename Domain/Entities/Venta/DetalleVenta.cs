@@ -13,7 +13,10 @@ namespace Domain.Entities
     public class DetalleVenta: Entity<int>
     {
         public decimal  ValorUnitario{ get; set; }
-        public decimal Descuento { get; set; }
+        public decimal PorcentajeDescuento { get; set; }
+        public decimal ValorDescuento { get; set; }
+        public decimal ValorTotalProductos { get; set; }
+
         public DateTime Fecha { get; set; }
         public int Cantidad { get; set; }
         public int ProductoId { get; set; }

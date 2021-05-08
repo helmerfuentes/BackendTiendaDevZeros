@@ -19,11 +19,11 @@ namespace Application.Http.Responses
             Id = rol.Id;
             Nombre = rol.Nombre;
         }
-        public RolResponse Include(List<Permiso> permiso)
+        public RolResponse Include(ICollection<Permiso> permiso)
         {
             if (permiso!=null)
             {
-                Permisos = permiso.ConvertAll(x => new PermisoResponse(x));
+                Permisos = permiso.ToList().ConvertAll(x => new PermisoResponse(x));
             }
             return this;
         }

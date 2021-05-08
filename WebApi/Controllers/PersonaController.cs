@@ -23,12 +23,20 @@ namespace WebApi.Controllers
             _unitOfWork = unitOfWork;
             _personaService = new PersonaService(unitOfWork);
         }
+
         [HttpPost]
         public ActionResult<Response<PersonaResponse>> Registrar(CrearPersonaRequest request)
         {
-
             var response= _personaService.Registrar(request);
             return StatusCode((int)response.Code, response);
         }
+
+        [HttpGet]
+        public ActionResult<Response<PersonaResponse>> BuscarPorDocumento([FromQuery]string documento)
+        {
+            var response = _personaService.BuscarPorDocumento(documento);
+            return StatusCode((int)response.Code, response);
+        }
+
     }
 }

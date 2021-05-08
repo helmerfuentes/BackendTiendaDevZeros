@@ -97,10 +97,8 @@ namespace Application.Services
         {
             // TODO: User authentication code
             var usuario = UnitOfWork.UserRepository
-                .FindBy(x => x.Username == request.Username && x.Password == Encriptacion.GetSha256(request.Password),"Rol")
+                .FindBy(x => x.Username == request.Username && x.Password == Encriptacion.GetSha256(request.Password),includeProperties:"Rol.Permisos")
                 .FirstOrDefault();
-
-
 
             if (usuario is null)
             {
@@ -109,27 +107,13 @@ namespace Application.Services
                     State = false,
                     Message = "Usuario o contraseña incorrecta",
                     Code = System.Net.HttpStatusCode.NotFound,
-
                 };
             }
-            
 
             var token = Encriptacion.BuildToken(usuario);
             return new Response<LoginUserResponse>(
                 "Autenticación Correcta", 
-                data: new LoginUserResponse
-            {
-                Username = usuario.Username,
-                Token = token,
-                Rol = usuario.Rol.Nombre
-            });
-            
-               
-
-            
+                data: new LoginUserResponse(usuario).Include(usuario.Rol).Include(token));
         }
-
-
-     
     }
 }

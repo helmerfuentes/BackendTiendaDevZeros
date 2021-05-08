@@ -17,6 +17,7 @@ namespace Application.Http.Responses
         public decimal PorcentajeUtilidad { get; set; }
         public int CantidadDisponible { get; set; }
         public string Categoria { get; set; }
+        public DateTime Fecha { get; set; }
 
         public ProductoResponse(Producto producto)
         {
@@ -34,6 +35,15 @@ namespace Application.Http.Responses
             if (categoria!=null)
             {
                 Categoria = categoria.Nombre;
+            }
+            return this;
+        }
+
+        public ProductoResponse Include(List<DetalleCompra> detalleCompras)
+        {
+            if (detalleCompras!=null)
+            {
+                Fecha = detalleCompras.Max(x => x.Fecha);
             }
             return this;
         }

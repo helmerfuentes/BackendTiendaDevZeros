@@ -25,9 +25,13 @@ namespace Application.Services
 
             return new Response<IEnumerable<CategoriaResponse>>("Listado de Producto",
                 data: cateogiras.ConvertAll(x => new CategoriaResponse(x)));
+        }
+        public Response<IEnumerable<CategoriaResponse>> CategoriaConProductoDisponible()
+        {
+            var cateogiras = UnitOfWork.CategoriaRepository.FindBy().ToList();
 
-
-
+            return new Response<IEnumerable<CategoriaResponse>>("Listado de Producto",
+                data: cateogiras.ConvertAll(x => new CategoriaResponse(x).Include(x.Productos.ToList())));
         }
     }
 }

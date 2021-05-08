@@ -27,8 +27,21 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<Response<IEnumerable<ProductoResponse>>> Listar()
         {
-
             var response=_productoService.Listar();
+            return StatusCode((int)response.Code, response);
+        }
+
+        [HttpGet("PorCategoria")]
+        public ActionResult<Response<IEnumerable<ProductoResponse>>> ListarCategoria([FromQuery]int id)
+        {
+            var response = _productoService.ListarPorCategoria(id);
+            return StatusCode((int)response.Code, response);
+        }
+
+        [HttpGet("disponibles")]
+        public ActionResult<Response<IEnumerable<ProductoResponse>>> ListarDisponibles()
+        {
+            var response = _productoService.ListarDisponible();
             return StatusCode((int)response.Code, response);
         }
 

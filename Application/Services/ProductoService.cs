@@ -35,18 +35,32 @@ namespace Application.Services
             }
         }
 
-        
 
+        public Response<IEnumerable<ProductoResponse>> ListarPorCategoria(int categoriaId)
+        {
+            var productos = UnitOfWork.ProductoRepository.FindBy(x=>x.CantidadDisponible>0 && x.CategoriaId==categoriaId).ToList();
+
+            return new Response<IEnumerable<ProductoResponse>>("Listado de Producto",
+                data: productos.ConvertAll(x => new ProductoResponse(x)));
+        }
         public Response<IEnumerable<ProductoResponse>> Listar()
         {
             var productos = UnitOfWork.ProductoRepository.FindBy(includeProperties: "Categoria").ToList();
 
             return new Response<IEnumerable<ProductoResponse>>("Listado de Producto",
                 data: productos.ConvertAll(x => new ProductoResponse(x).Include(x.Categoria)));
-            
-      
-
         }
+
+        public Response<IEnumerable<ProductoResponse>> ListarDisponible()
+        {
+            var productos = UnitOfWork.ProductoRepository.FindBy(x=>x.CantidadDisponible!=0, includeProperties: "Categoria,DetalleCompras").ToList();
+
+            return new Response<IEnumerable<ProductoResponse>>("Listado de Producto",
+                data: productos.ConvertAll(x => new ProductoResponse(x).Include(x.Categoria).Include(x.DetalleCompras.ToList())));
+        }
+
+
+
 
         public Response<CrearProductoResponse> Actualizar(CrearProductoRequest request)
         {

@@ -17,7 +17,7 @@ namespace Application.Http.Responses
         public DetalleVentaResponse(DetalleVenta detalleVenta)
         {
             ValorUnitario = detalleVenta.ValorUnitario;
-            Descuento = detalleVenta.Descuento;
+            Descuento = detalleVenta.PorcentajeDescuento;
             Fecha = detalleVenta.Fecha;
         }
 

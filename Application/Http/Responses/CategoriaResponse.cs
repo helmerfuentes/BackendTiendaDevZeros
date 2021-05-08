@@ -12,6 +12,7 @@ namespace Application.Http.Responses
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+        public List<ProductoResponse>Productos { get; set; }
 
         public CategoriaResponse(Categoria categoria)
         {
@@ -20,5 +21,16 @@ namespace Application.Http.Responses
             Descripcion = categoria.Descripcion;
 
         }
+
+        public CategoriaResponse Include(List<Producto> productos)
+        {
+            if (productos!=null)
+            {
+                Productos = productos.ConvertAll(x => new ProductoResponse(x));
+            }
+            return this;
+
+        }
+
     }
 }

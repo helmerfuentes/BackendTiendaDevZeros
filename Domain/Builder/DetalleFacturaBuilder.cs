@@ -15,17 +15,19 @@ namespace Application.Builder
         {
             detalles = new List<DetalleVenta>();
         }
-        public static void AgregarDetalle(decimal descuento, Producto producto, decimal valorUnitario,int cantidad)
+        public static void AgregarDetalle(decimal porcentajeDescuento, Producto producto, decimal valorUnitario,int cantidad)
         {
             if (producto.QuitarProducto(cantidad))
             {
                 var detalle = new DetalleVenta
                 {
-                    Descuento = descuento,
+                    PorcentajeDescuento = porcentajeDescuento,
+                    ValorDescuento= (valorUnitario*cantidad)/(porcentajeDescuento/100),
                     Fecha = DateTime.Now,
                     Producto = producto,
                     ValorUnitario = valorUnitario,
-                    Cantidad = cantidad
+                    Cantidad = cantidad,
+                    ValorTotalProductos= (valorUnitario * cantidad) - (valorUnitario * cantidad) * (porcentajeDescuento / 100)
                 };
 
                 detalles.Add(detalle);
@@ -46,8 +48,9 @@ namespace Application.Builder
             {
                 PersonaId = personaId,
                 Fecha = DateTime.Now,
-                Ventas=detalles,
-                Valor=detalles.Sum(x=>x.ValorUnitario)
+                Ventas = detalles,
+                ValorTotalDescontaado = detalles.Sum(x => x.ValorDescuento),
+                Valor=detalles.Sum(x=>(x.ValorTotalProductos))
             };
             detalles = default;
             return factura;
